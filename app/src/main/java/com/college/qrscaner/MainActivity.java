@@ -3,12 +3,16 @@ package com.college.qrscaner;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,5 +29,19 @@ public class MainActivity extends AppCompatActivity {
 
         imageBarcode.startAnimation(animationBarcodeToMax);
 
+
+        Thread thread = new Thread(){
+            public void run(){
+                try {
+                    TimeUnit.SECONDS.sleep(3);
+                    Intent intent = new Intent(MainActivity.this, CameraActivity.class);
+                    startActivity(intent);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        thread.start();
     }
+
 }
